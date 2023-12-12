@@ -39,9 +39,9 @@ This repository contains the C++ implementation of QuantileFilter, the first app
 
 ## Installation & Run
 
-QuantileFilter can run on both Windows and Linux platforms. Navigate to the QuantileFilter directory using the command cd QuantileFilter and execute either make.bat or make.sh to compile QuantileFilter.
+QuantileFilter can run on both Windows and Linux platforms. Navigate to the QuantileFilter directory using the command `cd QuantileFilter` and execute either `make.bat` or `make.sh` to compile QuantileFilter.
 
-If you want to test different algorithms or different parameters for QuantileFilter, navigate to the respective subdirectory until you find runall.bat or runall.sh to compile and run it. You may need to prepare test data yourself and modify the default input and output file names in the code to ensure smooth execution. After running runall, you can use painter.py or mypainter.py in the parent directory to generate images.
+If you want to test different algorithms or different parameters for QuantileFilter, navigate to the respective subdirectory until you find `runall.bat` or `runall.sh` to compile and run it. You may need to prepare test data yourself and modify the default input and output file names in the code to ensure smooth execution. After running `runall`, you can use `painter.py` or `mypainter.py` in the parent directory to generate images.
 
 
 ## Reference
