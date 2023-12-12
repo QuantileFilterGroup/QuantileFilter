@@ -1,0 +1,77 @@
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import math
+import numpy as np
+
+names = [
+    "1_1",
+    "1_2",
+    "1_4",
+    "1_8",
+    "1_16",
+    "2_1"
+]
+
+real_names = [
+    "1:1",
+    "1:2",
+    "1:4",
+    "1:8",
+    "1:16",
+    "2:1"
+]
+
+full_paths = ["./" + name + "/summary.csv" for name in names]
+dfs = [pd.read_csv (name) for name in full_paths]
+for i, name in enumerate (names):
+    (dfs [i])['name'] = name
+for i, name in enumerate (real_names):
+    (dfs [i])['real_name'] = name
+
+df = pd.concat (dfs, axis = 0)
+df ['Log_Memory'] = df ['Memory'].apply (lambda x: math.log (x, 2))
+
+
+sns.set_theme (style = "ticks",
+                rc = {"grid.linestyle" : "--",
+                    "axes.grid.axis": "y",
+                    "axes.grid": True}
+            )
+
+def fig (x, y, xlabel, ylabel, style, data, name):
+    data_clean = data.dropna (subset = [x, y, style])
+    plt.figure (figsize = (6, 5))
+    sns.lineplot (x = x, y = y, style = style, hue = style,
+                    markers = True, dashes=False, data = data_clean,
+                    linewidth=2.5, markersize=12)
+    plt.ylabel(ylabel, fontweight='bold', fontsize = 22, labelpad = -5)
+    plt.xlabel(xlabel, fontweight='bold', fontsize = 22, labelpad = 5)
+    plt.subplots_adjust (bottom = 0.18, right = 0.95, left = 0.17, top = 0.77)
+    legend = plt.legend(loc='upper center', bbox_to_anchor=(0.46, 1.4), ncol=3, prop={'weight': 'bold', 'size' : 20})
+    for line in legend.get_lines():
+        line.set_linewidth(2.5)
+        line.set_markersize(12)
+    # legend.get_ ().set_fontweight (1000)
+    plt.tick_params(axis='both', which='major', labelsize = 18, pad = 8)
+    plt.tick_params(axis='x', which='major', labelsize = 22, pad = 8)
+    origin = 11
+    xticks = np.linspace(12, 22, 6)
+    plt.xticks (xticks, [f'$2^{{{int (i)}}}$' for i in xticks])
+    plt.xlim (origin, 23)
+    plt.ylim (-3, 103)
+    plt.savefig(f'{name}.pdf')
+    plt.show()
+
+# F1 Score
+fig ('Log_Memory', 'F1_Score', 'Memory (Bytes)',
+        'F1 Score', 'real_name', df, 'F1_score_memory_proportion_CAIDA')
+
+# Precision
+fig ('Log_Memory', 'Precision', 'Memory (Bytes)',
+        'Precision', 'real_name', df, 'Precision_memory_proportion_CAIDA')
+
+# Recall
+fig ('Log_Memory', 'Recall', 'Memory (Bytes)',
+        'Recall', 'real_name', df, 'Recall_memory_proportion_CAIDA')
