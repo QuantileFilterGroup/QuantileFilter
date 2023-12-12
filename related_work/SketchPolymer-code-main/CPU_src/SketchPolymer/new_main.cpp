@@ -21,12 +21,12 @@ const int BAR = (int) (DELTA * (SCALE + ASCEND_PROB + 1));
 
 struct Quintet
 {
-	int delay;			   	// 这个包的延迟（微秒）
-	uint32_t SrcIP; 		// 源IP地址
-	uint32_t DstIP; 		// 目的IP地址
-	uint16_t SrcPort;     	// 源端口号16bit
-	uint16_t DstPort;    	// 目的端口号16bit
-	uint8_t Protocol;       // 协议类型
+	int delay;			   	// Delay of the package (microsecond)
+	uint32_t SrcIP; 		// Source IP address
+	uint32_t DstIP; 		// Destination IP Address
+	uint16_t SrcPort;     	// Source IP Port (16 bits)
+	uint16_t DstPort;    	// Destination IP Port (16 bits)
+	uint8_t Protocol;       // Protocol type
 	
 	Quintet () {}
 	Quintet (int _delay, uint32_t _SrcIP, uint32_t _DstIP,
